@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, Link, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import Album from './components/Album';
 import Favorites from './components/Favorites';
 import Login from './components/Login';
@@ -9,6 +9,7 @@ import ProfileEdit from './components/ProfileEdit';
 import Search from './components/Search';
 import Carregando from './components/Carregando';
 import { getUser } from './services/userAPI';
+import Header from './components/Header';
 
 class App extends React.Component {
   constructor() {
@@ -41,13 +42,16 @@ class App extends React.Component {
     const { loginName, logged, userGot } = this.state;
     return (
       <div className="avo">
+        <div className="header">
+          <Header />
+        </div>
         <h1>
           <p>
             TrybeTunes
           </p>
         </h1>
         <div className="pai">
-          <div className="sidebar">
+          {/* <div className="sidebar">
             <div className="barzinho">
               <Link to="/">home</Link>
             </div>
@@ -66,7 +70,7 @@ class App extends React.Component {
             <div className="barzinhoend">
               <Link to="/profile/edit">Profile Edit</Link>
             </div>
-          </div>
+          </div> */}
           <div className="componentsection">
             <Switch>
               <Route
@@ -78,7 +82,7 @@ class App extends React.Component {
                   handleChange={ this.handleChange }
                   fetchUser={ this.fetchUser }
                 /> }
-                { userGot.length > 0 ? <Redirect to="/search" /> : ''}
+                { userGot.length > 0 && <Redirect to="/search" />}
               </Route>
               <Route path="/search" component={ Search }>
                 {userGot > 0 ? <Redirect /> : ''}
