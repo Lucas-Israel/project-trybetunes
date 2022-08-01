@@ -17,3 +17,43 @@ code {
   display: flex;
   justify-content: center;
 }
+
+.avo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+h1 {
+  align-self: center;
+}
+
+.pai {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.sidebar {
+  margin: 0px 100px;
+  border: solid 1px black;
+  border-radius: 3px;
+  background-color: gray;
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.barzinho {
+  padding-top: 10px;
+}
+
+.barzinhoend {
+  padding: 10px 0 10px;
+}
+
+.componentsection {
+  margin: 0px 100px;
+}
