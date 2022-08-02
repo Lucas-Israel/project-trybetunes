@@ -21,6 +21,9 @@ code {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-left: 20%;
+  margin-right: 20%;
+  align-self: center;
 }
 
 .page-title {
@@ -36,4 +39,20 @@ code {
   color: white;
   align-items: center;
   margin-bottom: 50px;
+}
+
+.tracks {
+  margin: 5px;
+  padding: 3px;
+  background-color: rgb(172, 172, 172);
+  display: flex;
+  width: 80%;
+}
+
+.track {
+  display: flex;
+  padding: 3px 5px 0 5px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
