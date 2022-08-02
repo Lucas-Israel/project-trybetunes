@@ -57,3 +57,23 @@ code {
   align-items: center;
   width: 100%;
 }
+
+.star {
+  display: flex;
+  align-self: center;
+  visibility:hidden;
+  font-size:30px;
+  cursor:pointer;
+}
+.star:before {
+  display: flex;
+  align-self: center;
+  content: "\2606";
+  visibility:visible;
+}
+.star:checked:before {
+  display: flex;
+  align-self: center;
+  content: "\2605";
+  color: yellow;
+}
