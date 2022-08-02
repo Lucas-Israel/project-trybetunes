@@ -14,6 +14,7 @@ class App extends React.Component {
     this.state = {
       loginName: '',
       searchValue: '',
+      musicSearch: [],
     };
   }
 
@@ -24,8 +25,14 @@ class App extends React.Component {
     });
   };
 
+  customSetState = (param1, param2) => {
+    this.setState({
+      [param1]: param2,
+    });
+  }
+
   render() {
-    const { loginName, searchValue } = this.state;
+    const { loginName, searchValue, musicSearch } = this.state;
     return (
       <div className="pai">
         <Switch>
@@ -44,6 +51,8 @@ class App extends React.Component {
               { ...props }
               searchValue={ searchValue }
               handleChange={ this.handleChange }
+              customSetState={ this.customSetState }
+              musicSearch={ musicSearch }
             />) }
           />
           <Route path="/album/:id" component={ Album } />
