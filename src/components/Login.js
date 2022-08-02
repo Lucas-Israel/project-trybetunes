@@ -1,34 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { createUser } from '../services/userAPI';
+import { Redirect } from 'react-router-dom';
+import { createUser, getUser } from '../services/userAPI';
+import Carregando from './Carregando';
+import PreLogin from './PreLogin';
 
 class Login extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      loading: false,
+      getUserValidation: false,
+    };
+  }
+
+  funcCreateUser = async (param) => {
+    createUser({ name: param });
+    this.setState((before) => ({
+      loading: !before.loading,
+    }));
+    await getUser();
+    this.setState((before) => ({
+      getUserValidation: !before.getUserValidation,
+    }));
+  }
+
   render() {
-    const { loginName, handleChange, fetchUser } = this.props;
-    const loginNameLengthValue = 3;
+    const { loading, getUserValidation } = this.state;
+    const { loginName, handleChange } = this.props;
     return (
-      <div data-testid="page-login">
-        <label htmlFor="login-name">
-          <input
-            id="login-name"
-            data-testid="login-name-input"
-            name="loginName"
-            value={ loginName }
-            onChange={ handleChange }
-          />
-        </label>
-        {' '}
-        <button
-          type="button"
-          data-testid="login-submit-button"
-          disabled={ loginName.length < loginNameLengthValue }
-          onClick={ () => {
-            createUser({ name: loginName });
-            fetchUser();
-          } }
-        >
-          Entrar
-        </button>
+      <div>
+        { getUserValidation && <Redirect to="/search" />}
+        { loading ? <Carregando /> : <PreLogin
+          loginName={ loginName }
+          handleChange={ handleChange }
+          funcCreateUser={ this.funcCreateUser }
+        />}
       </div>
     );
   }
@@ -37,7 +44,6 @@ class Login extends React.Component {
 Login.propTypes = {
   loginName: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
-  fetchUser: PropTypes.func.isRequired,
 };
 
 export default Login;
