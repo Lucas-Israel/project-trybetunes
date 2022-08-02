@@ -19,52 +19,53 @@ class Search extends React.Component {
     const { searchValue, handleChange, customSetState, musicSearch } = this.props;
     const disabledValue = 2;
     return (
-      <div data-testid="page-search" className="page">
+      <div data-testid="page-search">
         <Header />
-        <h1>
-          Search
-        </h1>
-        <div>
-          <label htmlFor="input-search">
-            <input
-              id="input-search"
-              data-testid="search-artist-input"
-              name="searchValue"
-              value={ searchValue }
-              onChange={ handleChange }
-            />
-          </label>
-          {' '}
-          <button
-            data-testid="search-artist-button"
-            type="button"
-            disabled={ searchValue.length < disabledValue }
-            onClick={ () => {
-              this.setState({
-                loading: true,
-                searchedArtist: searchValue,
-              });
-              searchAlbumsAPI(searchValue)
-                .then((data) => {
-                  customSetState('musicSearch', data);
-                  this.setState({ loading: false });
+        <div className="page">
+          <h1>
+            Search
+          </h1>
+          <div>
+            <label htmlFor="input-search">
+              <input
+                id="input-search"
+                data-testid="search-artist-input"
+                name="searchValue"
+                value={ searchValue }
+                onChange={ handleChange }
+              />
+            </label>
+            {' '}
+            <button
+              data-testid="search-artist-button"
+              type="button"
+              disabled={ searchValue.length < disabledValue }
+              onClick={ () => {
+                this.setState({
+                  loading: true,
+                  searchedArtist: searchValue,
                 });
-              customSetState('searchValue', '');
-            } }
-          >
-            Pesquisar
+                searchAlbumsAPI(searchValue)
+                  .then((data) => {
+                    customSetState('musicSearch', data);
+                    this.setState({ loading: false });
+                  });
+                customSetState('searchValue', '');
+              } }
+            >
+              Pesquisar
 
-          </button>
-        </div>
-        <div>
-          {loading && <Carregando /> }
-          <p>
-            {!loading
+            </button>
+          </div>
+          <div>
+            {loading && <Carregando /> }
+            <p>
+              {!loading
             && searchedArtist.length > 0
             && `Resultado de álbuns de: ${searchedArtist}`}
-          </p>
-          <div>
-            {!loading && musicSearch.length > 0
+            </p>
+            <div>
+              {!loading && musicSearch.length > 0
               && musicSearch.map(({
                 artistName,
                 collectionId,
@@ -78,9 +79,10 @@ class Search extends React.Component {
                     {`Album ${collectionName}`}
                   </Link>
                 </div>))}
-            {musicSearch.length < 1
+              {musicSearch.length < 1
             && searchedArtist.length > 0
             && 'Nenhum álbum foi encontrado'}
+            </div>
           </div>
         </div>
       </div>
