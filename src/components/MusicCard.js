@@ -62,7 +62,7 @@ class MusicCard extends React.Component {
             />
           </label>
         </div>
-        <div>
+        <div className="song-name-div">
           {loading ? <Carregando /> : trackName}
         </div>
         <div>

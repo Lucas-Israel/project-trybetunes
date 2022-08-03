@@ -35,7 +35,7 @@ class Favorites extends React.Component {
       <div data-testid="page-favorites">
         <Header />
         <div className="page">
-          {!loading && gotFavs.length < 1 ? 'No favorites' : 'Favorite songs'}
+          <h1>{!loading && gotFavs.length < 1 ? 'No favorites' : 'Favorite songs'}</h1>
           {gotFavs.map(({ previewUrl, trackId, trackName }) => (
             <div key={ trackId } className="tracks">
               <MusicCard

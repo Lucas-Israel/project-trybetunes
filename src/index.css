@@ -21,8 +21,8 @@ code {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-left: 20%;
-  margin-right: 20%;
+  margin-left: 15%;
+  margin-right: 15%;
   align-self: center;
 }
 
@@ -79,4 +79,8 @@ code {
   content: "\2605";
   color: yellow;
   margin: 5px 3px 3px 7px;
+}
+
+.song-name-div {
+  max-width: 320px;
 }
