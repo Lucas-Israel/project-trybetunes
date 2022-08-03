@@ -27,13 +27,34 @@ class Header extends React.Component {
     return (
       <div className="headerzinho" data-testid="header-component">
         <div className="linksOnHeader">
-          <Link to="/search" data-testid="link-to-search">Search</Link>
+          <Link
+            style={ { textDecoration: 'none', color: 'white' } }
+            to="/search"
+            data-testid="link-to-search"
+          >
+            Search
+
+          </Link>
         </div>
         <div className="linksOnHeader">
-          <Link to="/favorites" data-testid="link-to-favorites">Favorites</Link>
+          <Link
+            style={ { textDecoration: 'none', color: 'white' } }
+            to="/favorites"
+            data-testid="link-to-favorites"
+          >
+            Favorites
+
+          </Link>
         </div>
         <div className="linksOnHeader">
-          <Link to="/profile" data-testid="link-to-profile">Profile</Link>
+          <Link
+            style={ { textDecoration: 'none', color: 'white' } }
+            to="/profile"
+            data-testid="link-to-profile"
+          >
+            Profile
+
+          </Link>
         </div>
         <div className="linksOnHeader" data-testid="header-user-name">
           {user || 'Carregando...'}
