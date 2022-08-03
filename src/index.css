@@ -64,16 +64,19 @@ code {
   visibility:hidden;
   font-size:30px;
   cursor:pointer;
+  margin: 5px 3px 3px 7px;
 }
 .star:before {
   display: flex;
   align-self: center;
   content: "\2606";
   visibility:visible;
+  margin: 5px 3px 3px 7px;
 }
 .star:checked:before {
   display: flex;
   align-self: center;
   content: "\2605";
   color: yellow;
+  margin: 5px 3px 3px 7px;
 }

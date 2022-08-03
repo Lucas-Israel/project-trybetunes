@@ -22,6 +22,10 @@ class Album extends React.Component {
     });
   }
 
+  update = () => {
+    if (this.getfavs) this.getFavs();
+  }
+
   render() {
     const { album, musicas } = this.state;
     const albumName = album.map(({ collectionCensoredName }) => (
@@ -54,6 +58,7 @@ class Album extends React.Component {
                 trackName={ trackName }
                 trackId={ trackId }
                 musicas={ musicas }
+                update={ this.update }
               />
             </div>
           ))}

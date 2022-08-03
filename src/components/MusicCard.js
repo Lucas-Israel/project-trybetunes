@@ -38,27 +38,30 @@ class MusicCard extends React.Component {
 
   render() {
     const { loading, checked } = this.state;
-    const { trackName, previewUrl, trackId, musicas } = this.props;
+    const { trackName, previewUrl, trackId, musicas, update } = this.props;
     const songFilter = musicas.find(({ trackId: trackID }) => trackID === trackId);
-    // const favorito = favSongs.some(({ trackId: songID }) => songID === trackId);
     return (
       <div className="track" key={ trackId }>
-        <label htmlFor={ trackId } data-testid={ `checkbox-music-${trackId}` }>
-          <input
-            type="checkbox"
-            className="star"
-            id={ trackId }
-            checked={ checked }
-            onChange={ () => {
-              this.setState({ loading: true, checked: true });
-              this.addSongHandler(songFilter);
-              if (checked) {
-                this.removeSongHandler(songFilter);
-                this.setState({ checked: false });
-              }
-            } }
-          />
-        </label>
+        <div className="fav-star">
+          <label htmlFor={ trackId } data-testid={ `checkbox-music-${trackId}` }>
+            Favorita
+            <input
+              type="checkbox"
+              className="star"
+              id={ trackId }
+              checked={ checked }
+              onChange={ () => {
+                this.setState({ loading: true, checked: true });
+                this.addSongHandler(songFilter);
+                if (checked) {
+                  this.removeSongHandler(songFilter);
+                  this.setState({ checked: false });
+                  update();
+                }
+              } }
+            />
+          </label>
+        </div>
         <div>
           {loading ? <Carregando /> : trackName}
         </div>
@@ -84,6 +87,7 @@ MusicCard.propTypes = {
   musicas: PropTypes.arrayOf(
     PropTypes.shape({}).isRequired,
   ).isRequired,
+  update: PropTypes.func.isRequired,
 };
 
 export default MusicCard;

@@ -30,7 +30,7 @@ class Header extends React.Component {
           <Link to="/search" data-testid="link-to-search">Search</Link>
         </div>
         <div className="linksOnHeader">
-          <Link to="/favorites" data-testid="link-to-favorites">Favoritos</Link>
+          <Link to="/favorites" data-testid="link-to-favorites">Favorites</Link>
         </div>
         <div className="linksOnHeader">
           <Link to="/profile" data-testid="link-to-profile">Profile</Link>
