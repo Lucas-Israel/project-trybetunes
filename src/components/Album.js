@@ -28,19 +28,19 @@ class Album extends React.Component {
 
   render() {
     const { album, musicas } = this.state;
-    const albumName = album.map(({ collectionCensoredName }) => (
-      <p key={ collectionCensoredName } data-testid="album-name">
+    const albumName = album.map(({ collectionCensoredName }, index) => (
+      <p key={ collectionCensoredName + index } data-testid="album-name">
         Collection Name
         {': '}
         {collectionCensoredName}
       </p>
     ));
-    const artistNam = album.map(({ artistName }) => (
-      <p key={ artistName } data-testid="artist-name">
+    const artistNam = album.map(({ artistName }, index) => (
+      <p key={ artistName + index } data-testid="artist-name">
         {`Artista: ${artistName}`}
       </p>));
-    const albumPicture = album.map(({ artistId, artworkUrl100 }) => (
-      <div key={ artistId }>
+    const albumPicture = album.map(({ artistId, artworkUrl100 }, index) => (
+      <div key={ artistId + index }>
         <img src={ artworkUrl100 } alt={ artistId } />
       </div>
     ));
@@ -52,7 +52,7 @@ class Album extends React.Component {
           {artistNam}
           {albumName}
           {musicas.map(({ previewUrl, trackId, trackName }) => (
-            <div key={ trackId } className="tracks">
+            <div key={ trackName + trackId } className="tracks">
               <MusicCard
                 previewUrl={ previewUrl }
                 trackName={ trackName }

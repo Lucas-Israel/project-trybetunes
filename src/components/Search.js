@@ -1,23 +1,36 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Header from './Header';
-import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import Carregando from './Carregando';
+import searchAlbumsAPI from '../services/searchAlbumsAPI';
 
 class Search extends React.Component {
   constructor() {
     super();
     this.state = {
-      searchedArtist: '',
       loading: false,
+      artistName: '',
+      inputValue: '',
+      musicSearch: '',
     };
   }
 
+  handleChange = ({ target }) => {
+    const { name, value } = target;
+    this.setState({
+      [name]: value,
+    });
+  };
+
+  searching = async () => {
+    const { inputValue } = this.state;
+    this.setState({ loading: true, artistName: inputValue });
+    const abc = await searchAlbumsAPI(inputValue);
+    this.setState({ loading: false, inputValue: '', musicSearch: abc });
+  }
+
   render() {
-    const { searchedArtist, loading } = this.state;
-    const { searchValue, handleChange, customSetState, musicSearch } = this.props;
-    const disabledValue = 2;
+    const { loading, artistName, inputValue, musicSearch } = this.state;
     return (
       <div data-testid="page-search">
         <Header />
@@ -30,27 +43,19 @@ class Search extends React.Component {
               <input
                 id="input-search"
                 data-testid="search-artist-input"
-                name="searchValue"
-                value={ searchValue }
-                onChange={ handleChange }
+                name="inputValue"
+                value={ inputValue }
+                onChange={ this.handleChange }
+                placeholder="Procurar artistas/bandas"
               />
             </label>
             {' '}
             <button
               data-testid="search-artist-button"
               type="button"
-              disabled={ searchValue.length < disabledValue }
+              disabled={ inputValue.length < 2 }
               onClick={ () => {
-                this.setState({
-                  loading: true,
-                  searchedArtist: searchValue,
-                });
-                searchAlbumsAPI(searchValue)
-                  .then((data) => {
-                    customSetState('musicSearch', data);
-                    this.setState({ loading: false });
-                  });
-                customSetState('searchValue', '');
+                this.searching();
               } }
             >
               Pesquisar
@@ -61,17 +66,19 @@ class Search extends React.Component {
             {loading && <Carregando /> }
             <p>
               {!loading
-            && searchedArtist.length > 0
-            && `Resultado de álbuns de: ${searchedArtist}`}
+            && artistName.length > 0
+            && `Resultado de álbuns de: ${artistName}`}
             </p>
             <div>
               {!loading && musicSearch.length > 0
               && musicSearch.map(({
-                artistName,
+                artistNameS,
                 collectionId,
-                collectionName },
+                collectionName,
+                artworkUrl100 },
               index) => (
-                <div key={ artistName + index }>
+                <div className="searchedDiv" key={ artistName + index }>
+                  <img className="searchImg" src={ artworkUrl100 } alt={ artistNameS } />
                   <Link
                     to={ `/album/${collectionId}` }
                     data-testid={ `link-to-album-${collectionId}` }
@@ -80,7 +87,7 @@ class Search extends React.Component {
                   </Link>
                 </div>))}
               {musicSearch.length < 1
-            && searchedArtist.length > 0
+            && artistName.length > 0
             && 'Nenhum álbum foi encontrado'}
             </div>
           </div>
@@ -89,12 +96,5 @@ class Search extends React.Component {
     );
   }
 }
-
-Search.propTypes = {
-  searchValue: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  customSetState: PropTypes.func.isRequired,
-  musicSearch: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-};
 
 export default Search;

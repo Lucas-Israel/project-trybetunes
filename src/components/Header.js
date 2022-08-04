@@ -7,6 +7,7 @@ class Header extends React.Component {
     super();
     this.state = {
       user: '',
+      imagem: '',
     };
   }
 
@@ -18,46 +19,61 @@ class Header extends React.Component {
     const { user } = this.state;
     if (user.length < 1) {
       const use = await getUser();
-      this.setState({ user: use.name });
+      this.setState({ user: use.name, imagem: use.image });
     }
   }
 
   render() {
-    const { user } = this.state;
+    const { user, imagem } = this.state;
     return (
-      <div className="headerzinho" data-testid="header-component">
-        <div className="linksOnHeader">
-          <Link
-            style={ { textDecoration: 'none', color: 'white' } }
-            to="/search"
-            data-testid="link-to-search"
-          >
-            Search
-
-          </Link>
+      <div>
+        <div className="header-user-name" data-testid="header-user-name">
+          <div>
+            <h3>
+              TrybeTunes
+            </h3>
+          </div>
+          <div className="header-user-display">
+            <img className="header-img" src={ imagem } alt={ user } />
+            <h3>
+              {user || 'Carregando...'}
+            </h3>
+          </div>
         </div>
-        <div className="linksOnHeader">
-          <Link
-            style={ { textDecoration: 'none', color: 'white' } }
-            to="/favorites"
-            data-testid="link-to-favorites"
-          >
-            Favorites
-
-          </Link>
-        </div>
-        <div className="linksOnHeader">
-          <Link
-            style={ { textDecoration: 'none', color: 'white' } }
-            to="/profile"
-            data-testid="link-to-profile"
-          >
-            Profile
-
-          </Link>
-        </div>
-        <div className="linksOnHeader" data-testid="header-user-name">
-          {user || 'Carregando...'}
+        <div className="headerzinho" data-testid="header-component">
+          <div className="linksOnHeader">
+            <Link
+              style={ { textDecoration: 'none', color: 'white' } }
+              to="/search"
+              data-testid="link-to-search"
+            >
+              <h3>
+                Search
+              </h3>
+            </Link>
+          </div>
+          <div className="linksOnHeader">
+            <Link
+              style={ { textDecoration: 'none', color: 'white' } }
+              to="/favorites"
+              data-testid="link-to-favorites"
+            >
+              <h3>
+                Favorites
+              </h3>
+            </Link>
+          </div>
+          <div className="linksOnHeader">
+            <Link
+              style={ { textDecoration: 'none', color: 'white' } }
+              to="/profile"
+              data-testid="link-to-profile"
+            >
+              <h3>
+                Profile
+              </h3>
+            </Link>
+          </div>
         </div>
       </div>
     );

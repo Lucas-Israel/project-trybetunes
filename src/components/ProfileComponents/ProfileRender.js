@@ -17,12 +17,21 @@ class ProfileRender extends React.Component {
             />
           </div>
           <div className="div-name">
+            <div className="prof-div">
+              Nome:
+            </div>
             {name}
           </div>
           <div className="div-email">
+            <div className="prof-div">
+              Email:
+            </div>
             {email}
           </div>
           <div className="div-desc">
+            <div className="prof-div">
+              Descrição:
+            </div>
             {description}
           </div>
         </section>

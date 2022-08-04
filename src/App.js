@@ -13,8 +13,6 @@ class App extends React.Component {
     super();
     this.state = {
       loginName: '',
-      searchValue: '',
-      musicSearch: [],
     };
   }
 
@@ -32,7 +30,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { loginName, searchValue, musicSearch } = this.state;
+    const { loginName } = this.state;
     return (
       <div className="pai">
         <Switch>
@@ -45,16 +43,7 @@ class App extends React.Component {
               handleChange={ this.handleChange }
             />) }
           />
-          <Route
-            path="/search"
-            render={ (props) => (<Search
-              { ...props }
-              searchValue={ searchValue }
-              handleChange={ this.handleChange }
-              customSetState={ this.customSetState }
-              musicSearch={ musicSearch }
-            />) }
-          />
+          <Route path="/search" component={ Search } />
           <Route path="/album/:id" component={ Album } />
           <Route path="/favorites" component={ Favorites } />
           <Route exact path="/profile/edit" component={ ProfileEdit } />
